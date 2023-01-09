@@ -1,0 +1,101 @@
+package pro.dracarys.newgods.commands;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import pro.dracarys.newgods.NewGods;
+import pro.dracarys.newgods.api.NewGodsAPI;
+
+import java.util.UUID;
+
+public class CmdMarry implements CommandExecutor {
+
+    public boolean marry() {
+        if (sender instanceof Player player) {
+            if (player.hasPermission("newgods.marry") == false) {
+                player.sendMessage(ChatColor.DARK_RED + "Sorry but you're not permitted to do this.");
+                return true;
+            }
+            if (AcceptInfo.HasOutgoingRequest(player.getName())) {
+                player.sendMessage(ChatColor.DARK_RED + "You already have an outgoing request.");
+                return true;
+            }
+            if (AcceptInfo.HasIncommingRequest(player.getName())) {
+                player.sendMessage(ChatColor.DARK_RED + "You already have a marrige request. type /gdeny to deny it.");
+                return true;
+            }
+            if (args != null && args.length > 0) {
+                String partner = args[0];
+                if (partner != null && !partner.isEmpty()) {
+                    if (partner.equals(player.getName())) {
+                        player.sendMessage(ChatColor.DARK_RED + "You cant marry yourself!");
+                        return true;
+                    }
+                    UUID godID1 = NewGodsAPI.getGodID(player);
+                    if (godID1 == null) {
+                        player.sendMessage(ChatColor.DARK_RED + "Sorry, that player cant be found.");
+                        return true;
+                    }
+                    Player marryPlayer = Bukkit.getServer().getPlayer(partner);
+                    if (marryPlayer == null) {
+                        player.sendMessage(ChatColor.DARK_RED + "Sorry, that player cant be found.");
+                        return true;
+                    }
+                    if (NewGods.data.playerPartner.get(partnerID).equals("null") == false) {
+                        player.sendMessage(ChatColor.DARK_RED + "That player is already married.");
+                        return true;
+                    }
+                    player.sendMessage(ChatColor.GOLD + "Sending request to " + partner);
+                    NewGods.data.pendingAccepts
+                            .add(new AcceptInfo(marryPlayer.getName(), player.getName(), "marry"));
+                    return true;
+                }
+            }
+            player.sendMessage(ChatColor.DARK_RED + "Include the person you want to marry /gmarry <player name>");
+            return true;
+        }
+        return true;
+    }
+
+        public boolean divorce() {
+            if (sender instanceof Player p) {
+                if (!Util.checkPermission(p, "newgods.divorce"))
+                    return true;
+                int playerID = NewGods.data.getPlayerID(p.getName());
+                String partner = NewGods.data.playerPartner.get(playerID);
+                if (partner.equals("null")) {
+                    p.sendMessage(ChatColor.DARK_RED + "you're not married");
+                    return true;
+                }
+
+                int partnerID = NewGods.data.getPlayerID(partner);
+
+                boolean partnerOnline = true;
+                if (partnerID == -1) {
+                    NewGods.data.loadPlayer(partner);
+                    partnerOnline = false;
+                    partnerID = NewGods.data.getPlayerID(partner);
+                }
+
+                NewGods.data.playerPartner.set(playerID, "null");
+                NewGods.data.playerPartner.set(partnerID, "null");
+
+                NewGods.data.savePlayerData(playerID);
+                NewGods.data.savePlayerData(partnerID);
+
+                Player otherPlayer = Bukkit.getServer().getPlayer(partner);
+                if (partnerOnline == false) {
+                    NewGods.data.unloadPlayer(partnerID);
+                } else {
+                    otherPlayer.sendMessage(ChatColor.AQUA + "You got divorced.");
+                }
+                p.sendMessage(ChatColor.AQUA + "You got divorced.");
+
+            }
+            return true;
+        }
+
+}
