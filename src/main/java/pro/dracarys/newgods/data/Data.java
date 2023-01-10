@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Data {
 
@@ -92,7 +93,7 @@ public class Data {
 
     public void saveGodData() {
         try {
-            gFile.set("gods", gods);
+            gFile.set("gods", gods.entrySet().stream().collect(Collectors.toMap(e -> e.getKey().toString(), Map.Entry::getValue)));
             gFile.save(godFile);
         } catch (IOException e) {
             e.printStackTrace();
@@ -101,7 +102,7 @@ public class Data {
 
     public void saveBelieverData() {
         try {
-            bFile.set("believers", believers);
+            bFile.set("believers", believers.entrySet().stream().collect(Collectors.toMap(e -> e.getKey().toString(), Map.Entry::getValue)));
             bFile.save(believerFile);
         } catch (IOException e) {
             e.printStackTrace();

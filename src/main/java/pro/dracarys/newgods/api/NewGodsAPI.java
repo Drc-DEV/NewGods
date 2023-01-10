@@ -15,6 +15,8 @@ import pro.dracarys.newgods.utils.Util;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class NewGodsAPI {
@@ -86,15 +88,32 @@ public class NewGodsAPI {
     }
 
     public static String parseGodPlaceholders(String match, God god) {
-        match = match
-                .replace("{", "")
-                .replace("}", "");
+        if (match.contains("{") && match.contains("}")) {
+            Pattern p = Pattern.compile("(\\{[A-Za-z_-]+})");
+            Matcher m = p.matcher(match);
+            String parsed = match;
+            while (m.find()) {
+                parsed = parsed.replace(m.group(1), parseVar(m.group(1), god));
+            }
+            return parsed;
+        } else {
+            return parseVar(match, god);
+        }
+    }
+
+    private static String parseVar(String match, God god) {
+        match = match.replace("{", "").replace("}", "");
         return switch (match) {
             case "name" -> god.getName();
             case "power" -> god.getPower() + "";
             case "id" -> god.getId().toString();
-            case "leadername" ->
-                    Bukkit.getPlayer(NewGods.data.getBelievers().values().stream().filter(believer -> believer.getGod() == god.getId() && believer.isLeader()).findFirst().get().getPlayerUUID()).getName();
+            case "leadername" -> {
+                Optional<Believer> bel = NewGods.data.getBelievers().values().stream()
+                        .filter(b -> b.getGod() == god.getId() && b.isLeader()).findFirst();
+                if (bel.isPresent()) yield Bukkit.getPlayer(bel.get().getPlayerUUID()).getName();
+                yield "Server";
+            }
+
             case "spawnlocation" -> Util.locationSerialize(god.getSpawnLocation());
             case "type" -> god.getType();
             case "color" -> ChatColor.valueOf(god.getType()) + "";

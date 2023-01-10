@@ -25,7 +25,7 @@ public class God implements ConfigurationSerializable {
         this.type = "AQUA";
     }
 
-    public God(String name, UUID id, int power, int happiness, String spawnLocation, String type) {
+    public God(String name, UUID id, int power, String spawnLocation, String type) {
         this.name = name;
         this.id = id;
         this.power = power;
@@ -34,12 +34,13 @@ public class God implements ConfigurationSerializable {
     }
 
     // Deserialization constructor
-    public God(Map<String, Object> map) {
+    public God deserialize(Map<String, Object> map) {
         this.name = (String) map.get("name");
         this.id = UUID.fromString((String) map.get("id"));
         this.power = (int) map.getOrDefault("power", 0);
         this.spawnLocation = (String) map.getOrDefault("spawn-loc", null);
         this.type = (String) map.getOrDefault("type", "AQUA");
+        return this;
     }
 
     @NotNull
