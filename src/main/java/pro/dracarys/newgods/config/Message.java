@@ -59,7 +59,7 @@ public enum Message {
     CMD_DELHOME("Command.home.home-deleted", "&aThe Spawn location of the Faith of {name} was deleted successfully!"),
     CMD_HOME_TP("Command.home.teleported", "&7Teleporting to your Faith Home..."),
     CMD_LEAVEGOD("God.left-religion", "You have abandoned your god. Your faith power is now 0."),
-    CMD_JOINGOD("God.joined-religion", "&aYou have joined the faith of &e{playerGod}&a."),
+    CMD_JOINGOD("God.joined-religion", "&aYou have joined the faith of &e{name}&a."),
 
     CMD_MAIN_HEADER("Command.main-header", "&f«&m-------------&f»  &4&lGods &7v%version%&f  «&m-------------&f»"),
     CMD_MAIN_FOOTER("Command.main-footer", " "),
