@@ -45,7 +45,7 @@ public class NewGods extends JavaPlugin {
         registerConfig();
         registerCommand("gods", new CmdGod());
         registerEvents();
-        getLogger().info(getDescription().getName() + " has been enabled! Version:" + getDescription().getVersion());
+        ConfigLib.printPluginInfo();
         regularUpdate();
     }
 

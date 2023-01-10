@@ -5,6 +5,7 @@ authors: [ Valentina_pro ]
 api-version: 1.18
 depend: [ Vault ]
 softdepend: [ PlaceholderAPI ]
+description: Create and worship your own Gods
 commands:
   gods:
     description: Opens the god interface
