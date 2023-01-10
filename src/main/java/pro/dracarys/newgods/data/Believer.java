@@ -57,7 +57,7 @@ public class Believer implements ConfigurationSerializable {
         mapSerializer.put("rank", this.rank);
         mapSerializer.put("holiness", this.holiness);
         mapSerializer.put("happiness", this.happiness);
-        mapSerializer.put("partner", this.playerPartner.toString());
+        mapSerializer.put("partner", this.playerPartner != null ? this.playerPartner.toString() : null);
         mapSerializer.put("god", this.god.toString());
         return mapSerializer;
     }
