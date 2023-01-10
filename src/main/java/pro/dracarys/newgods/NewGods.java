@@ -76,6 +76,7 @@ public class NewGods extends JavaPlugin {
     }
 
     public void registerConfig() {
+        ConfigLib.setPlugin(this);
         ConfigLib.addFile(new ConfigFile());
         ConfigLib.addFile(new MessageFile());
         ConfigLib.initAll();
