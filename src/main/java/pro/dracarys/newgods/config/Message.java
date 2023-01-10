@@ -20,6 +20,8 @@ public enum Message {
     GOD_WRONGALTAR("God.wrong-altar", "&7[&4✕&7] &cThis isn't an altar for your god. Type /gods leave to leave your religion."),
     GOD_WRONGGODALTAR("God.wrong-god-altar", "You can only make alters for your god."),
     GOD_CREATED("God.created", "&aCongratulations! You successfully created a new God."),
+    GOD_DELETED("God.deleted", "&aCongratulations! You successfully deleted that God."),
+
     GOD_PRAYED("God.prayed", "&aYou prayed for {color}{name}&a... &7your god's strength increased by &e{gainedpower}."),
 
     RANK_LEADER("Ranks.LEADER", "Leader"),
@@ -38,6 +40,8 @@ public enum Message {
     ERROR_ONLYLEADER("God.leader-only", "&cSorry, but you must be the Leader of your religion!"),
     ERROR_BLACKLISTED("God.name-blacklisted", "&cSorry, but you cannot use that name."),
     ERROR_NOGOD("God.without-god", "&7[&4✕&7] &cYou're not in a religion."),
+    ERROR_ALREADYEXISTS("God.already-exists", "&7[&4✕&7] &cA God with that name already exists, choose a different name."),
+    ERROR_NONAME("God.provide-a-name", "&7[&4✕&7] &cYou should input the name of the God."),
     ERROR_NOTSAMEGOD("God.not-the-same-god", "&7[&4✕&7] &cThat player does not worship your same god."),
     ERROR_HASGOD("God.already-has-god", "&7[&4✕&7] &cYou already worship a god. Use /gods leave to abandon your current religion."),
     ERROR_GODNOTFOUND("God.no-god-by-this-name", "&7[&4✕&7] &cThere is no God with that name. Please provide a valid god name."),
@@ -53,7 +57,7 @@ public enum Message {
     SACRIFICE_ITEM_END("God.sacrifice.completed-item", "{color}{name}&a is pleased with your generosity! Your Faith gains strength as a result."),
 
     CMD_DELHOME("Command.home.home-deleted", "&aThe Spawn location of the Faith of {name} was deleted successfully!"),
-    CMD_HOME_TP("Command.home.teleported","&7Teleporting to your Faith Home..."),
+    CMD_HOME_TP("Command.home.teleported", "&7Teleporting to your Faith Home..."),
     CMD_LEAVEGOD("God.left-religion", "You have abandoned your god. Your faith power is now 0."),
     CMD_JOINGOD("God.joined-religion", "&aYou have joined the faith of &e{playerGod}&a."),
 
@@ -75,6 +79,7 @@ public enum Message {
             "/gods type <type> <godname>",
             "/gods rank <player> <rank> <godname>",
             "/gods delhome <godname>",
+            "/gods create <godname>",
             "/gods delete <godname>",
             "/gods home <godname>",
             "/gods leave <player>",

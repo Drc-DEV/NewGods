@@ -24,7 +24,7 @@ import java.util.*;
 
 public class CmdGod implements TabExecutor {
 
-    List<String> subCommands = List.of("reload", "type", "delete");
+    List<String> subCommands = List.of("reload", "type", "create", "delete", "info", "list", "delhome", "home");
 
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
@@ -122,6 +122,32 @@ public class CmdGod implements TabExecutor {
             God god = NewGods.data.getGods().get(godID);
             Arrays.stream(Message.CMD_INFO_FORMAT.getMessages())
                     .forEach(str -> sender.sendMessage(NewGodsAPI.parseGodPlaceholders(str, god)));
+        } else if (args[0].equalsIgnoreCase("create") && Util.checkPermission(sender, "newgods.admin")) {
+            UUID godID;
+            if (args.length > 1) {
+                godID = NewGodsAPI.getGodID(args[1]);
+            } else {
+                sender.sendMessage(Message.PREFIX.getMessage() + Message.ERROR_NONAME.getMessage());
+                return true;
+            }
+            if (godID != null) {
+                sender.sendMessage(Message.PREFIX.getMessage() + Message.ERROR_ALREADYEXISTS.getMessage());
+                return true;
+            }
+            NewGodsAPI.createGod(args[1], sender);
+        } else if (args[0].equalsIgnoreCase("delete") && Util.checkPermission(sender, "newgods.admin")) {
+            UUID godID;
+            if (args.length > 1) {
+                godID = NewGodsAPI.getGodID(args[1]);
+            } else {
+                sender.sendMessage(Message.PREFIX.getMessage() + Message.ERROR_NONAME.getMessage());
+                return true;
+            }
+            if (godID == null) {
+                sender.sendMessage(Message.PREFIX.getMessage() + Message.ERROR_GODNOTFOUND.getMessage());
+                return true;
+            }
+            NewGodsAPI.deleteGod(args[1], sender);
         } else if (args[0].equalsIgnoreCase("sethome") && Util.checkPermission(sender, "newgods.sethome")) {
             if (sender instanceof Player p) {
                 if (believer == null || !believer.isLeader()) {
@@ -266,15 +292,13 @@ public class CmdGod implements TabExecutor {
             }
         }
         if (NewGodsAPI.getGodID(godName) == null) {
-            UUID godID = UUID.randomUUID();
-            NewGods.data.getGods().put(godID, new God(godName, godID));
-            player.sendMessage(Message.PREFIX.getMessage() + Message.GOD_CREATED.getMessage());
+            UUID godID = NewGodsAPI.createGod(godName, player);
             if (Config.GOD_SETSPAWN_ONCREATE.getOption()
                     && Config.GOD_SPAWNWORLDS.getStringList().stream().anyMatch(s -> s.equalsIgnoreCase(event.getBlock().getWorld().getName()))) {
                 NewGods.data.getGods().get(godID).setSpawnLocation(event.getBlock().getLocation());
                 player.sendMessage(Message.PREFIX.getMessage() + Message.CMD_SETSPAWN.getMessage());
+                NewGods.data.saveGodData();
             }
-            NewGods.data.saveGodData();
             NewGodsAPI.followGod(player, godName);
         } else {
             if (NewGodsAPI.getGodID(player) == null) {

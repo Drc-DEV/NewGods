@@ -3,6 +3,7 @@ package pro.dracarys.newgods.api;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pro.dracarys.newgods.NewGods;
 import pro.dracarys.newgods.config.Message;
@@ -65,6 +66,23 @@ public class NewGodsAPI {
             player.sendMessage(Message.PREFIX.getMessage() + Message.CMD_RANK_LEADER.getMessage());
         }
         NewGods.data.saveBelieverData();
+    }
+
+    public static UUID createGod(String godName, CommandSender creator) {
+        UUID godID = UUID.randomUUID();
+        NewGods.data.getGods().put(godID, new God(godName, godID));
+        NewGods.data.saveGodData();
+        creator.sendMessage(Message.PREFIX.getMessage() + Message.GOD_CREATED.getMessage());
+        return godID;
+    }
+
+    public static boolean deleteGod(String godName, CommandSender creator) {
+        UUID godID = NewGodsAPI.getGodID(godName);
+        if (godID == null) return false;
+        NewGods.data.getGods().remove(godID);
+        NewGods.data.saveGodData();
+        creator.sendMessage(Message.PREFIX.getMessage() + Message.GOD_DELETED.getMessage());
+        return true;
     }
 
     public static String parseGodPlaceholders(String match, God god) {
