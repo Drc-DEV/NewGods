@@ -1,40 +1,36 @@
 # New Gods
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/StarBound6494/NewGods)
 The New Gods Server Plugin for Minecraft
 If you have any issues please use open an issue on github.
 
-> **Disclaimer**: New Gods was originally created by discord user **Liam (Kouvo)#4021**
-> They have not been seen active in over a year and due to community desire for continued plugin updates I have started releasing versions built off of Liam's code. I do not claim any of their work as my own. 
-> The plugin will remain free with the code publicly available just as before. The goal is to simply keep the plugin working for the latest version of Minecraft and to work on Liam's Todo List which was included in the project files he posted. 
-
+> **Disclaimer**: New Gods was originally created by discord user Liam (Kouvo)#4021
+> This is a fork of StarBound6494's version of the plugin
 ## About New Gods
 
 
 
 New Gods is a Minecraft plugin that allows players to create and worship their own gods. 
+This is a Recoded Fork.
+
 Features include: 
-- **Graphical Plugin Interface** - Type /god
 - **God Creation** - Players can create their own gods with signs
-- **God Alters** - By making alters you can pray to your god
+- **God Altars** - By making altars you can pray to your god
 - **God Types** - Change your gods color
 - **Sacrifices** - Sacrifice items to your god to gain their favor
 - **God Leaders** - God leaders can rank other followers to be a priest
 - **Priests** - Priests can invite players to a religion and set the god spawn
 - **Marriages** - Players can marry each other
-- **Marriage Benefits** - Teleport to your partner and teleport items to them
 - **Home** - Each god has a home that can you can teleport to
-- **Prefixes** - For people who are married, a leader or a priest
-- **Shop** - You can spend your gained faith at your gods shop
+- **Prefixes** - Available through PAPI placeholders
 - **Blessings** - Gods will bless you with exp randomly
 
-## Download and Install
-To download the plugin head over to the spigot page linked below and download the latest version. If you are running a minecraft version other than the latest you can use the version history to find the version of the plugin that works for your server. You can find help selecting the correct version on the plugin discord. 
+Removed GUIs, replaced with text interfaces, exposed everything to API
 
-Once the plugin is downloaded, drop it into your server's plugins folder and restart your server. New Gods supports reloading but restarting your server completely is always cleaner. After the restart the plugin will have generated a folder with a config file inside. You can use this to adjust the plugin's options to your liking. Details on the config file can be found on the plugin's Spigot page (also linked below)
+## Compiling
+
+mvn package
+(Java 17+)
 
 ## Links
 
 
-**[Plugin Spigot Page](https://www.spigotmc.org/resources/new-new-gods.89188/)**
-
-**[Plugin Discord](https://discord.gg/83KXcg3)**
+**[Original Plugin Spigot Page](https://www.spigotmc.org/resources/new-new-gods.89188/)**
