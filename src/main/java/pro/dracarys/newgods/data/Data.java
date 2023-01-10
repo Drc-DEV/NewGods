@@ -92,7 +92,6 @@ public class Data {
         try {
             File godFile = new File(getDataFolder() + File.separator + "gods" + ".yml");
             FileConfiguration gFile = YamlConfiguration.loadConfiguration(godFile);
-            gods.forEach((key, value) -> System.out.println(key.toString()));
             gods.forEach((key, value) -> gFile.set("gods." + key.toString(), value));
             gFile.save(godFile);
         } catch (IOException e) {
