@@ -61,7 +61,7 @@ public enum Message {
     CMD_LEAVEGOD("God.left-religion", "You have abandoned your god. Your faith power is now 0."),
     CMD_JOINGOD("God.joined-religion", "&aYou have joined the faith of &e{name}&a."),
 
-    CMD_MAIN_HEADER("Command.main-header", "&f«&m-------------&f»  &4&lGods &7v%version%&f  «&m-------------&f»"),
+    CMD_MAIN_HEADER("Command.main-header", "&f«&m-------------&f»  &4&lGods &7{version}&f  «&m-------------&f»"),
     CMD_MAIN_FOOTER("Command.main-footer", " "),
     CMD_RELOAD("Command.reload-success", "&aConfig reloaded successfully"),
     CMD_LIST_FORMAT("Command.list.format", " &e{color}{name} &7» &f{power} - {followers} - {leadername}"),

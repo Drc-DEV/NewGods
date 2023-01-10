@@ -35,14 +35,17 @@ public class Believer implements ConfigurationSerializable {
     }
 
     // Deserialization constructor
-    public Believer deserialize(Map<String, Object> map) {
+    public Believer(Map<String, Object> map) {
         this.playerUUID = UUID.fromString((String) map.get("uuid"));
         this.rank = BelieverRank.valueOf((String) map.get("rank"));
         this.holiness = (int) map.get("holiness");
         this.happiness = (int) map.get("happiness");
-        this.playerPartner = UUID.fromString((String) map.get("partner"));
+        String partner = (String) map.getOrDefault("partner", null);
+        if (partner == null)
+            this.playerPartner = null;
+        else
+            this.playerPartner = UUID.fromString(partner);
         this.god = UUID.fromString((String) map.get("god"));
-        return this;
     }
 
     @NotNull

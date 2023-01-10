@@ -6,6 +6,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import pro.dracarys.newgods.NewGods;
+import pro.dracarys.newgods.config.Config;
 import pro.dracarys.newgods.config.Message;
 import pro.dracarys.newgods.data.Believer;
 import pro.dracarys.newgods.data.BelieverRank;
@@ -61,9 +62,9 @@ public class NewGodsAPI {
         }
         God god = optionalGod.get();
         NewGods.data.getBelievers().put(player.getUniqueId(), new Believer(player.getUniqueId(), god.getId()));
-        player.sendMessage(Message.PREFIX.getMessage() + Message.CMD_JOINGOD.getMessage());
+        player.sendMessage(Message.PREFIX.getMessage() + NewGodsAPI.parseGodPlaceholders(Message.CMD_JOINGOD.getMessage(), god));
 
-        if (NewGods.data.getBelievers().values().stream().noneMatch(b1 -> b1.getGod() == god.getId() && b1.isLeader())) {
+        if (Config.GOD_AUTORANK.getOption() && NewGods.data.getBelievers().values().stream().noneMatch(b1 -> b1.getGod() == god.getId() && b1.isLeader())) {
             NewGods.data.getBelievers().get(player.getUniqueId()).setRank(BelieverRank.LEADER);
             player.sendMessage(Message.PREFIX.getMessage() + Message.CMD_RANK_LEADER.getMessage());
         }

@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class Data {
 
@@ -25,13 +24,9 @@ public class Data {
     private Map<UUID, ItemSacrifice> itemSacrificeMap = new HashMap<>(); // only 1 at the time, god UUID
 
     public Data() {
-        reloadData();
+        loadGods();
+        loadBelievers();
     }
-
-    FileConfiguration bFile;
-    File believerFile;
-    FileConfiguration gFile;
-    File godFile;
 
     public Map<UUID, God> getGods() {
         return this.gods;
@@ -49,10 +44,13 @@ public class Data {
         return itemSacrificeMap;
     }
 
+    private String getDataFolder() {
+        return NewGods.getInstance().getDataFolder() + File.separator + "data";
+    }
+
     private void loadGods() {
-        File gdata = new File(NewGods.getInstance().getDataFolder(), File.separator + "data");
-        godFile = new File(gdata, File.separator + "gods" + ".yml");
-        gFile = YamlConfiguration.loadConfiguration(godFile);
+        File godFile = new File(getDataFolder() + File.separator + "gods" + ".yml");
+        FileConfiguration gFile = YamlConfiguration.loadConfiguration(godFile);
         if (!godFile.exists()) {
             try {
                 gFile.createSection("gods");
@@ -63,14 +61,13 @@ public class Data {
         }
         this.gods = new HashMap<>();
         for (String key : gFile.getConfigurationSection("gods").getKeys(false)) {
-            this.gods.put(UUID.fromString(key), (God) gFile.get("gods." + key));
+            this.gods.put(UUID.fromString(key), gFile.getSerializable("gods." + key, God.class));
         }
     }
 
     private void loadBelievers() {
-        File gdata = new File(NewGods.getInstance().getDataFolder(), File.separator + "data");
-        believerFile = new File(gdata, File.separator + "believers" + ".yml");
-        bFile = YamlConfiguration.loadConfiguration(believerFile);
+        File believerFile = new File(getDataFolder() + File.separator + "believers" + ".yml");
+        FileConfiguration bFile = YamlConfiguration.loadConfiguration(believerFile);
         if (!believerFile.exists()) {
             try {
                 bFile.createSection("believers");
@@ -81,7 +78,7 @@ public class Data {
         }
         this.believers = new HashMap<>();
         for (String key : bFile.getConfigurationSection("believers").getKeys(false)) {
-            this.believers.put(UUID.fromString(key), (Believer) bFile.get("believers." + key));
+            this.believers.put(UUID.fromString(key), bFile.getSerializable("believers." + key, Believer.class));
         }
     }
 
@@ -93,7 +90,10 @@ public class Data {
 
     public void saveGodData() {
         try {
-            gFile.set("gods", gods.entrySet().stream().collect(Collectors.toMap(e -> e.getKey().toString(), Map.Entry::getValue)));
+            File godFile = new File(getDataFolder() + File.separator + "gods" + ".yml");
+            FileConfiguration gFile = YamlConfiguration.loadConfiguration(godFile);
+            gods.forEach((key, value) -> System.out.println(key.toString()));
+            gods.forEach((key, value) -> gFile.set("gods." + key.toString(), value));
             gFile.save(godFile);
         } catch (IOException e) {
             e.printStackTrace();
@@ -102,16 +102,13 @@ public class Data {
 
     public void saveBelieverData() {
         try {
-            bFile.set("believers", believers.entrySet().stream().collect(Collectors.toMap(e -> e.getKey().toString(), Map.Entry::getValue)));
+            File believerFile = new File(getDataFolder() + File.separator + "believers" + ".yml");
+            FileConfiguration bFile = YamlConfiguration.loadConfiguration(believerFile);
+            believers.forEach((key, value) -> bFile.set("believers." + key.toString(), value));
             bFile.save(believerFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void reloadData() {
-        loadGods();
-        loadBelievers();
     }
 
 }

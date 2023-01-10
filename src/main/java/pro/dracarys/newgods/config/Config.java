@@ -17,6 +17,8 @@ public enum Config {
 
     GOD_AUTODELETE("gods.auto-delete-when-no-followers", false),
 
+    GOD_AUTORANK("gods.auto-set-leader-when-no-followers", false),
+
     GOD_PUNISHMENTS_ENABLED("gods.enable-punishments", true),
     GOD_NAME_BLACKLIST("gods.name-blacklist", new String[]{
             "null",

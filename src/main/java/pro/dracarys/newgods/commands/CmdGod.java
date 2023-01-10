@@ -45,7 +45,8 @@ public class CmdGod implements TabExecutor {
         }
         if ((args.length == 0 || args[0].equalsIgnoreCase("help"))
                 && Util.checkPermission(sender, "newgods.help")) {
-            sender.sendMessage(Message.CMD_MAIN_HEADER.getMessage());
+            sender.sendMessage(Message.CMD_MAIN_HEADER.getMessage()
+                    .replace("{version}", NewGods.getInstance().getDescription().getVersion()));
             for (String helpMsg : Message.CMD_HELP_LEADER.getMessages()) {
                 sender.sendMessage(helpMsg);
             }

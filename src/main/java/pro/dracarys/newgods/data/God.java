@@ -34,13 +34,12 @@ public class God implements ConfigurationSerializable {
     }
 
     // Deserialization constructor
-    public God deserialize(Map<String, Object> map) {
+    public God(Map<String, Object> map) {
         this.name = (String) map.get("name");
         this.id = UUID.fromString((String) map.get("id"));
         this.power = (int) map.getOrDefault("power", 0);
         this.spawnLocation = (String) map.getOrDefault("spawn-loc", null);
         this.type = (String) map.getOrDefault("type", "AQUA");
-        return this;
     }
 
     @NotNull

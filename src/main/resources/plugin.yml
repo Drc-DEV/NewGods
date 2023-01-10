@@ -11,18 +11,6 @@ commands:
     usage: /gods
 
 permissions:
-  newgods.accept:
-    description: Lets you accept a marriage/religion request
-    default: true
-  newgods.buy:
-    description: Lets you buy items with prayer points
-    default: true
-  newgods.demote:
-    description: Lets you remove priests from your religion
-    default: true
-  newgods.deny:
-    description: Denies a marriage/religion request
-    default: true
   newgods.divorce:
     description: Divorces your partner
     default: true
@@ -53,9 +41,6 @@ permissions:
   newgods.rank:
     description: Lets religious leaders rank people to priests
     default: true
-  newgods.sacrifice:
-    description: Lets people sacrifice items to their god
-    default: true
   newgods.sethome:
     description: Leaders can set their religions /home location
     default: true
@@ -64,16 +49,7 @@ permissions:
     default: true
   newgods.create:
     description: This lets people create their own gods
-    default: true
-  newgods.plugin:
-    description: Allows players to know about this plugin
-    default: true
-  newgods.marrytp:
-    description: Lets you teleport to your partner
-    default: true
-  newgods.marrygift:
-    description: Lets you give items to your partner
-    default: true
+    default: op
   newgods.type:
     description: Allows you to change your gods type
     default: true
@@ -82,4 +58,7 @@ permissions:
     default: op
   newgods.doublexp:
     description: Gods will give you double xp
+    default: op
+  newgods.admin:
+    description: Access to admin commands
     default: op
