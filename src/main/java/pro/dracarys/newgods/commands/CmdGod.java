@@ -30,7 +30,7 @@ public class CmdGod implements TabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
         List<String> lista = new ArrayList<>();
         if (args.length == 1) {
-            if (sender.hasPermission("newgods.admin")) {
+            if (sender.hasPermission(Config.PERM_ADMIN.getString())) {
                 lista.addAll(StringUtil.copyPartialMatches(args[0], subCommands, new ArrayList<>()));
             }
 
@@ -92,8 +92,7 @@ public class CmdGod implements TabExecutor {
             if (args.length > 1) {
                 try {
                     page = Long.parseLong(args[1]);
-                } catch (NumberFormatException nfe) {
-                    page = 0;
+                } catch (NumberFormatException ignored) {
                 }
             }
             boolean hasNext = NewGods.data.getGods().size() > (page + 1) * Config.GOD_LIST_MAXPAGE.getInt();
@@ -122,7 +121,7 @@ public class CmdGod implements TabExecutor {
             God god = NewGods.data.getGods().get(godID);
             Arrays.stream(Message.CMD_INFO_FORMAT.getMessages())
                     .forEach(str -> sender.sendMessage(NewGodsAPI.parseGodPlaceholders(str, god)));
-        } else if (args[0].equalsIgnoreCase("create") && Util.checkPermission(sender, "newgods.admin")) {
+        } else if (args[0].equalsIgnoreCase("create") && Util.checkPermission(sender, Config.PERM_ADMIN.getString())) {
             UUID godID;
             if (args.length > 1) {
                 godID = NewGodsAPI.getGodID(args[1]);
@@ -135,7 +134,7 @@ public class CmdGod implements TabExecutor {
                 return true;
             }
             NewGodsAPI.createGod(args[1], sender);
-        } else if (args[0].equalsIgnoreCase("delete") && Util.checkPermission(sender, "newgods.admin")) {
+        } else if (args[0].equalsIgnoreCase("delete") && Util.checkPermission(sender, Config.PERM_ADMIN.getString())) {
             UUID godID;
             if (args.length > 1) {
                 godID = NewGodsAPI.getGodID(args[1]);

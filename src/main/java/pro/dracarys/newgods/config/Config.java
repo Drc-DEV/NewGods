@@ -5,6 +5,8 @@ import java.util.List;
 
 public enum Config {
 
+    PERM_ADMIN("permissions.admin", "newgods.admin"),
+
     GOD_SPAWNWORLDS("gods.spawn.allowed-worlds", new String[]{
             "world",
             "world2"
@@ -60,7 +62,8 @@ public enum Config {
 
     DEBUG("Debug", false);
 
-    String config, message;
+    String config;
+    String message;
     Boolean option;
     String[] messages;
     Integer number;
