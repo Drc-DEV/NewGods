@@ -98,8 +98,8 @@ public class PrayListener implements Listener {
                 if (p.hasPermission("newgods.doublexp"))
                     prayReward = prayReward * 2;
                 NewGods.data.getGods().get(godID).addPower(Config.GOD_PRAY_REWARD.getInt()); // power not affected by multiplier
-                believer.setHoliness(believer.getHoliness() + prayReward);
-                believer.setHappiness(believer.getHappiness() + prayReward);
+                believer.editHoliness(prayReward);
+                believer.editHappiness(prayReward);
 
                 p.sendMessage(Message.PREFIX.getMessage() + NewGodsAPI.parseGodPlaceholders(Message.GOD_PRAYED.getMessage()
                         .replace("{gainedpower}", Config.GOD_PRAY_REWARD.getInt() + ""), NewGods.data.getGods().get(godID)));

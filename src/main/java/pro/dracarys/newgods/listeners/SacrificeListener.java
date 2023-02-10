@@ -46,8 +46,8 @@ public class SacrificeListener implements Listener {
         } else {
             Util.sendActionBar(p, Message.SACRIFICE_MOB.getMessage().replace("{remaining}", s.getNumber() + ""));
         }
-        believer.setHoliness(believer.getHoliness() + reward);
-        believer.setHappiness(believer.getHappiness() + reward);
+        believer.editHoliness(reward);
+        believer.editHappiness(reward);
     }
 
 
@@ -72,8 +72,8 @@ public class SacrificeListener implements Listener {
             } else {
                 Util.sendActionBar(p, Message.SACRIFICE_ITEM.getMessage().replace("{remaining}", s.getNumber() + ""));
             }
-            believer.setHoliness(believer.getHoliness() + reward);
-            believer.setHappiness(believer.getHappiness() + reward);
+            believer.editHoliness(reward);
+            believer.editHappiness(reward);
         }
     }
 

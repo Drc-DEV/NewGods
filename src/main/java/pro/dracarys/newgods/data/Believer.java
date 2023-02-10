@@ -109,8 +109,12 @@ public class Believer implements ConfigurationSerializable {
         this.holiness = holiness;
     }
 
-    public void editHoliness(int holiness) {
-        this.holiness = getHoliness() + holiness;
+    public void editHoliness(int points) {
+        this.holiness = getHoliness() + points;
+    }
+
+    public void editHappiness(int points) {
+        this.happiness = getHappiness() + points;
     }
 
     public UUID getPlayerPartner() {

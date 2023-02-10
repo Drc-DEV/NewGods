@@ -128,7 +128,7 @@ public class NewGods extends JavaPlugin {
                 }
                 // decrease happiness with time
                 if (Config.HAPPINESS_DECREASE_AMOUNT.getInt() > 0 && ThreadLocalRandom.current().nextFloat() > 0.75 && believer.getHappiness() > 0) {
-                    believer.setHappiness(believer.getHappiness() - Config.HAPPINESS_DECREASE_AMOUNT.getInt());
+                    believer.editHappiness(-Config.HAPPINESS_DECREASE_AMOUNT.getInt());
                 }
             }
         }, 0, Config.HAPPNIESS_UPDATE_SPEED.getInt() * 60L * 20L);

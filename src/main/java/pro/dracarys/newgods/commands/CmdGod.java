@@ -64,6 +64,27 @@ public class CmdGod implements TabExecutor {
         } else if (args[0].equalsIgnoreCase("reload") && Util.checkPermission(sender, "newgods.reload")) {
             ConfigLib.initAll();
             sender.sendMessage(Message.PREFIX.getMessage() + Message.CMD_RELOAD.getMessage());
+        } else if (args[0].equalsIgnoreCase("editholiness") && Util.checkPermission(sender, "newgods.editholiness")) {
+            if (args.length > 1) {
+                Player p = Bukkit.getPlayer(args[1]);
+                if (p == null) {
+                    sender.sendMessage(Message.PREFIX.getMessage() + Message.ERROR_NULLPLAYER.getMessage());
+                    return true;
+                }
+                Believer tempB = NewGods.data.getBelievers().getOrDefault(p.getUniqueId(), null);
+                if (tempB == null) {
+                    sender.sendMessage(Message.PREFIX.getMessage() + Message.ERROR_NOGOD.getMessage());
+                    return true;
+                }
+                int amount = Integer.parseInt(args[2]);
+                tempB.editHoliness(amount);
+                sender.sendMessage(Message.PREFIX.getMessage() + Message.CMD_EDITHOLINESS_SUCCESS.getMessage()
+                        .replace("{name}", p.getName())
+                        .replace("{amount}", "" + amount));
+            } else {
+                sender.sendMessage(Message.PREFIX.getMessage() + Message.ERROR_NONAME.getMessage());
+                return true;
+            }
         } else if (args[0].equalsIgnoreCase("type") && Util.checkPermission(sender, "newgods.type")) {
 
             if (args.length < 2) {

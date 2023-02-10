@@ -73,6 +73,8 @@ public class PAPIHook extends PlaceholderExpansion {
             Believer b = NewGods.data.getBelievers().getOrDefault(player.getUniqueId(), null);
             if (b != null) {
                 if (identifier.endsWith("_rank")) return Message.valueOf("RANK_" + b.getRank().name()).getMessage();
+                if (identifier.endsWith("_holiness")) return b.getHoliness() + "";
+                if (identifier.endsWith("_happiness")) return b.getHappiness() + "";
             } else {
                 return "";
             }
