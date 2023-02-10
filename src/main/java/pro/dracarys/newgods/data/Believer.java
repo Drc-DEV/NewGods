@@ -53,8 +53,7 @@ public class Believer implements ConfigurationSerializable {
     public Map<String, Object> serialize() {
         HashMap<String, Object> mapSerializer = new HashMap<>();
         mapSerializer.put("uuid", this.playerUUID.toString());
-        mapSerializer.put("priest", this.rank.name());
-        mapSerializer.put("rank", this.rank);
+        mapSerializer.put("rank", this.rank.name());
         mapSerializer.put("holiness", this.holiness);
         mapSerializer.put("happiness", this.happiness);
         mapSerializer.put("partner", this.playerPartner != null ? this.playerPartner.toString() : null);
@@ -108,6 +107,10 @@ public class Believer implements ConfigurationSerializable {
 
     public void setHoliness(int holiness) {
         this.holiness = holiness;
+    }
+
+    public void editHoliness(int holiness) {
+        this.holiness = getHoliness() + holiness;
     }
 
     public UUID getPlayerPartner() {

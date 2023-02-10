@@ -49,6 +49,10 @@ public class NewGodsAPI {
         return null;
     }
 
+    public static Believer getBeliever(OfflinePlayer player) {
+        return NewGods.data.getBelievers().getOrDefault(player.getUniqueId(), null);
+    }
+
     public static void followGod(Player player, String godName) {
         Believer believer = NewGods.data.getBelievers().getOrDefault(player.getUniqueId(), null);
         if (believer != null) {

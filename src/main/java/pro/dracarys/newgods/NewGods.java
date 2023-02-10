@@ -24,7 +24,6 @@ import pro.dracarys.newgods.utils.Util;
 
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.logging.Logger;
 
 public class NewGods extends JavaPlugin {
 
@@ -54,9 +53,7 @@ public class NewGods extends JavaPlugin {
         data.saveGodData();
         data.saveBelieverData();
         getServer().getScheduler().cancelTasks(plugin);
-        Logger logger = getLogger();
         org.bukkit.event.HandlerList.unregisterAll(plugin);
-        logger.info(getDescription().getName() + " has been disabled! Version:" + getDescription().getVersion());
         plugin = null;
     }
 
@@ -130,8 +127,8 @@ public class NewGods extends JavaPlugin {
 
                 }
                 // decrease happiness with time
-                if (ThreadLocalRandom.current().nextFloat() > 0.75 && believer.getHappiness() > 0) {
-                    believer.setHappiness(believer.getHappiness() - 5);
+                if (Config.HAPPINESS_DECREASE_AMOUNT.getInt() > 0 && ThreadLocalRandom.current().nextFloat() > 0.75 && believer.getHappiness() > 0) {
+                    believer.setHappiness(believer.getHappiness() - Config.HAPPINESS_DECREASE_AMOUNT.getInt());
                 }
             }
         }, 0, Config.HAPPNIESS_UPDATE_SPEED.getInt() * 60L * 20L);

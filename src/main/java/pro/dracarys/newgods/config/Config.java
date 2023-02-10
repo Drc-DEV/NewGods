@@ -38,7 +38,7 @@ public enum Config {
     PREFIXES_ENABLED("prefixes.enabled", false),
     EXP_ENABLED("experience.enabled", true),
     EXP_BLESS_AMOUNT("experience.bless-amount", 200),
-
+    HAPPINESS_DECREASE_AMOUNT("gods.happiness.decrease-amount-per-update", 5),
     HAPPNIESS_UPDATE_SPEED("gods.happiness.update-speed-minutes", 10),
 
     SACRIFICE_MOBS_SPEED("sacrifice.mobs-update-speed-minutes", 10),
